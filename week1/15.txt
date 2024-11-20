@@ -1,10 +1,2 @@
-1. Each test detect a defect in the probabillity of 98% so 
-$ P(T1) = 0.98 \space\text{and}\space P(T2) = 0.98 \newline$ 
-Let's call the defect D and -D will be the non-defect.
-so the probabillity that both detect a defect when it's present is given by $\\
-P(T1|D) \cdot P(T2|D) = 0.98 \cdot 0.98 \approx 0.96 $
 
-2.The probabillity that at least one of them detect a defect when it's present is given by the complimant of the probabillity that none detect a defect when it's present $ \\
- 1-P(T1|-D) \cdot P(T2|-D) = 1-0.98 \cdot 0.98 \approx 0.04$
- 
- 3. The probabillity that a defective product will get rejected is equal to the probabillity that each test detect a defect when it's presentand it's equal to $ 0.96 $
+

@@ -18,19 +18,16 @@ def readPoiSpikes(fileName, Fs):
     If the file is in the directory of the script, the path is not needed
     otherwise, the path needs to be full 
     '''
-    
-    
+
     data = loadmat(fileName)
     rawspike = np.array(data['spikes'])
     rawspike = rawspike.flatten()
-    rawspike = rawspike/Fs
     
-    totalTime = int(len(rawspike)/Fs)
-    n_bins = int(totalTime*Fs)
+    totalTime = int(np.max(rawspike))
     if rawspike.size == 0:
         raise ValueError("The file is empty")
     
-    bins = np.linspace(0,totalTime,n_bins+1)
+    bins = np.linspace(0,totalTime,totalTime+1)
     spikeTrain,_= np.histogram(rawspike, bins=bins)
     spikeTrain = (spikeTrain>0).astype(int)
     return spikeTrain
@@ -42,7 +39,7 @@ def readPoiSpikes(fileName, Fs):
 def generatePoiSpikes(r, dt, totalSize):
     rand = np.random.rand(totalSize)
     spikeTrain = np.zeros(totalSize)
-    spikeTrain[rand>r*dt] = 1
+    spikeTrain[rand<r*dt] = 1
     
 
     return spikeTrain
@@ -58,7 +55,7 @@ def calcFF(spikeTrain):
     return FF
 
 def calcCV(spikeTrain):
-    spike = np.where(spikeTrain==1)
+    spike = np.where(spikeTrain==1)[0]
     isi = np.diff(spike)
     CV = np.std(isi)/np.mean(isi)
     
